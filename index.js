@@ -1,11 +1,16 @@
-// plain array
-const array = [1,2];
-const newArray = array;
-newArray[0] = 3;
-console.log('plain JS array', array[0] === 1);
+// create Map from an object
+const data = {
+    todo1: {
+        name: 'Todo 1',
+        value: 'Make it happen'
+    },
+    todo2: {
+        name: 'Todo 2',
+        value: 'Make it happer'
+    }
+};
 
-// immutable List
-const immutableList = Immutable.List([1,2]);
-const immutableList2 = immutableList;
-immutableList2.set(0, 3);
-console.log('Immutable', immutableList.get(0) === 1);
+const map = Immutable.Map(data);
+
+console.log('todo1', map.get('todo1'));
+console.log('todo2', map.get('todo2'));
