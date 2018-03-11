@@ -17,15 +17,24 @@ const data = {
 
 const map = Immutable.fromJS(data); // transform to Map/List the whole object
 
-// map
-const mapNames = map.map(item => item.get('name'));
-console.log('map', mapNames.toJS());
-// filter
-const mapAndrei = map.filter(item => item.includes('Andrei'));
-console.log('filter', mapAndrei.toJS());
-// map set
-const mapFidelman = map.map(item => item.set('surname','Fidelman'));
-console.log('map set', mapFidelman.toJS());
-// groupBy
-const mapGroup = map.groupBy(item => item.get('surname'));
-console.log('group', mapGroup.toJS());
+// slice
+const mapSliced = map.slice(-2); //last 2
+console.log('slice', mapSliced.toJS());
+// skip
+const mapSkipped = map.skip(1); //last 2
+console.log('skip', mapSkipped.toJS());
+// skip until
+const mapSkippedUntil = map.skipUntil(item => item.get('name') !== 'Andrei'); // skip until true
+console.log('skip until', mapSkippedUntil.toJS());
+// skip while
+const mapSkippedWhile = map.skipWhile(item => item.get('name') === 'Andrei'); // skip while true
+console.log('skip while', mapSkippedWhile.toJS());
+// take
+const mapTaken = map.take(2); //first 2
+console.log('take', mapTaken.toJS());
+// take until
+const mapTakenUntil = map.takeUntil(item => item.get('name') !== 'Andrei'); // stop take until false
+console.log('take until', mapTakenUntil.toJS());
+// take until
+const mapTakenWhile = map.takeWhile(item => item.get('name') === 'Andrei'); // stop take while false
+console.log('take while', mapTakenWhile.toJS());
