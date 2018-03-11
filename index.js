@@ -9,26 +9,23 @@ const data = {
         name: 'Karina',
         surname: 'Anisimova'
     },
-    list: [
-        1, 2, 3
-    ]
+    user3: {
+        name: 'Karina',
+        surname: 'Fidelman'
+    }
 };
 
 const map = Immutable.fromJS(data); // transform to Map/List the whole object
 
-// get
-console.log('get', map.get('user1').toJS());
-// getIn
-console.log('get it', map.getIn(['user1', 'name']));
-// has
-console.log('has', map.has('list')); // keys
-// has in
-console.log('has in', map.hasIn(['user1', 'name']));
-// includes
-console.log('includes', map.get('list').includes(3));
-// first
-console.log('first', map.first().toJS());
-// last
-console.log('last', map.last().toJS());
-// find
-console.log('find', map.find(value => value.includes('Andrei')).toJS());
+// map
+const mapNames = map.map(item => item.get('name'));
+console.log('map', mapNames.toJS());
+// filter
+const mapAndrei = map.filter(item => item.includes('Andrei'));
+console.log('filter', mapAndrei.toJS());
+// map set
+const mapFidelman = map.map(item => item.set('surname','Fidelman'));
+console.log('map set', mapFidelman.toJS());
+// groupBy
+const mapGroup = map.groupBy(item => item.get('surname'));
+console.log('group', mapGroup.toJS());
