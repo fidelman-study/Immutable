@@ -1,17 +1,20 @@
 const Immutable = window.Immutable;
 
-const set = Immutable.Set.of(1,2,2); // collection of unique items
+const data = {a:1, b:2};
 
-// check set
-console.log('set', set.toJS());
+// A record is similar to a JS object,
+// but enforces a specific set of allowed string keys,
+// and has default values.
 
-// comparison
-const collection = [1,2,3];
-const list1 = Immutable.List(collection);
-const list2 = Immutable.List(collection);
+const record = Immutable.Record(data);
 
-// plain non-equality
-console.log('plain comparison', list1 === list2);
+// mutate the record
+//                         if c: 3 the record will not be mutated
+//                                    ||
+//                                    \/
+const recordMutated = new record({ b: 3 });
+console.log('mutated record', recordMutated.toJS()); // {a:1, b:3}
 
-// hashCode comparison
-console.log('hashCode comparison', list1.hashCode() === list2.hashCode());
+// remove prop from the record
+const recordRemoved = recordMutated.remove('b');
+console.log('record removed', recordRemoved.toJS()); // {a:1, b:2}
