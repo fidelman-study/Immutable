@@ -1,14 +1,17 @@
 const Immutable = window.Immutable;
 
-const list = Immutable.List();
+// lazy array
+// order is not important
+// chain does not create intermediate collections
+const sequence = Immutable.Seq.of(1,2,3);
 
-// empty
-console.log('empty', list.toJS());
+// sequence
+console.log('sequence', sequence.toJS());
 
-// set
-const listSet = list.set(1, 'hello');
-console.log('set', listSet.toJS());
+// map
+const seqMap = sequence.map(item => item * 2);
+console.log('seq map', seqMap.toJS())
 
-// push
-const listPush = list.push('Number one');
-console.log('push', listPush.toJS());
+// take
+const taken2 = sequence.take(2);
+console.log('take 2', taken2.toArray());
