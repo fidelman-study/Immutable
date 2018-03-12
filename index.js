@@ -12,44 +12,39 @@ const data1 = {
     user3: {
         name: 'Karina',
         surname: 'Fidelman'
-    }
-};
-
-const data2 = {
-    user1: {
-        name: 'Andrei',
-        surname: 'Fidelman'
     },
-    user2: {
-        name: 'Karina',
-        surname: 'Anisimova'
-    },
-    user3: {
-        name: 'Karina',
-        surname: 'Fidelman'
-    }
-};
-
-const data3 = {
-    user1: {
-        name: 'Andrei',
-        surname: 'Fidelman'
-    },
-    user2: {
-        name: 'Karina',
-        surname: 'Anisimova'
-    }
+    list: [1,2,3]
 };
 
 const map1 = Immutable.fromJS(data1);
-const map2 = Immutable.fromJS(data2);
-const map3 = Immutable.fromJS(data3);
 
-// plain comparison
-console.log('plain comparison', map1 === map2);
-// Immutable.is comparison
-console.log('Immutable.is comparison', Immutable.is(map1, map2));
-// Subset comparison
-console.log('Subset', map3.isSubset(map1));
-// Superset comparison
-console.log('Superset', map1.isSuperset(map3));
+// isMap
+console.log('isMap', Immutable.Map.isMap(map1));
+
+// isList
+console.log('isList', Immutable.List.isList(map1.get('list')));
+
+// convert Map to List
+const list = map1.toList();
+console.log('list', list.toJS());
+
+// convert List to Map
+const newList = Immutable.List.of(1,2,3);
+const mapFromList = newList.toMap();
+console.log('map', mapFromList.toJS());
+
+// init list as map
+const array = [
+    1, 2, 3
+];
+
+const initedMap = Immutable.fromJS(array, (key, value) => value.toMap());
+console.log('init list as map', initedMap.toJS());
+
+// init map as list (nested)
+const initedListDeep = Immutable.fromJS(data1, (key, value) => value.toList());
+console.log('init map as list deep', initedListDeep.toJS());
+
+// init map as list (nested)
+const initedList = Immutable.fromJS(data1).toList();
+console.log('init map as list', initedList.toJS());
