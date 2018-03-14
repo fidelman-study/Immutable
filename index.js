@@ -1,20 +1,18 @@
 const Immutable = window.Immutable;
 
-const data = {a:1, b:2};
+const array = ['Apple', 'Banana', 'Cherry', 'Durian'];
+const list = Immutable.List(array);
 
-// A record is similar to a JS object,
-// but enforces a specific set of allowed string keys,
-// and has default values.
+console.log('list', list.toJS());
 
-const record = Immutable.Record(data);
+// find
+const listFind = list.find(item => item[0].toLowerCase() === 'b');
+console.log('item with b', listFind);
 
-// mutate the record
-//                         if c: 3 the record will not be mutated
-//                                    ||
-//                                    \/
-const recordMutated = new record({ b: 3 });
-console.log('mutated record', recordMutated.toJS()); // {a:1, b:3}
+// find index
+const listFindIndex = list.findIndex(item => item[0].toLowerCase() === 'b');
+console.log('index item with b', listFindIndex);
 
-// remove prop from the record
-const recordRemoved = recordMutated.remove('b');
-console.log('record removed', recordRemoved.toJS()); // {a:1, b:2}
+// findEntry
+const listFindEntry = list.findEntry(item => item[0].toLowerCase() === 'b');
+console.log('b: index – ' + listFindEntry[0] + ' value – ' + listFindEntry[1]);
