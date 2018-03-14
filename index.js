@@ -1,18 +1,64 @@
 const Immutable = window.Immutable;
 
-const array = ['Apple', 'Banana', 'Cherry', 'Durian'];
-const list = Immutable.List(array);
+// make console.log write to the page for better in-browser experience
+(function () {
+var body = document.querySelector('body');
+body.style['fontFamily'] = 'monospace';
+body.style['fontSize'] = '2em';
+console.log = function (x) { body.innerText += x + '\n'; };
+}());
 
-console.log('list', list.toJS());
 
-// find
-const listFind = list.find(item => item[0].toLowerCase() === 'b');
-console.log('item with b', listFind);
+let cart = Immutable.fromJS({
+    'items': [
+        {
+            'ASIN': 'B0008KLVVO',   
+            'title': 'Paid in Full',
+            'personnel': [
+                {
+                    'name': 'Erik B',
+                    'role': 'DJ'
+                },
+                {
+                    'name': 'Rakim',
+                    'role': 'MC'
+                }
+            ],
+            'price': 4.99
+        },
+        {
+            'ASIN': 'B00HAPTX42',
+            'title': 'Hello Nasty',
+            'personnel': [
+                {
+                    'name': 'MCA',
+                    'role': 'MC'
+                },
+                {
+                    'name': 'Mike D',
+                    'role': 'MC'
+                },
+                {
+                    'name': 'Ad-Rock',
+                    'role': 'MC'
+                },
+                {
+                    'name': 'Mix Master Mike',
+                    'role': 'DJ'
+                }
+            ],
+            'price': 7.00
+        }
+    ]
+})
 
-// find index
-const listFindIndex = list.findIndex(item => item[0].toLowerCase() === 'b');
-console.log('index item with b', listFindIndex);
+const names = cart.get('items').reduce((p, c) => {
+    const n = c.get('personnel').reduce((pi, ci) => {
+        console.log(ci);
+        return pi.concat(ci.get('name'));
+    }, Immutable.List());
 
-// findEntry
-const listFindEntry = list.findEntry(item => item[0].toLowerCase() === 'b');
-console.log('b: index – ' + listFindEntry[0] + ' value – ' + listFindEntry[1]);
+    return p.concat(n);
+}, Immutable.List());
+
+console.log(names.sort());
